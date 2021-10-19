@@ -1,10 +1,10 @@
 const poleGry = document.querySelector("#player");
-const pola = [];
+const miejsca = []; //obiekty z miejscem, czy  trafione, czy stoi na nich statek
+
 for (let i = 0; i < 11; i++) {
     for (let j = 0; j < 11; j++) {
-        pola[i, j] = document.createElement("div");
-        pola[i, j].innerText = i + "," + j;
-        poleGry.appendChild(pola[i, j]);
+        miejsca[i, j] = document.createElement("div");
+        miejsca[i, j].innerText = i + "," + j;
+        poleGry.appendChild(miejsca[i, j]);
     }
 }
-const statki = [lotniskowiec = [], krazownik = [], niszczyciel = [], lodz = []];
