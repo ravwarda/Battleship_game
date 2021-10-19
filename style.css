@@ -1,0 +1,23 @@
+main {
+    display: flex;
+}
+section {
+     display: grid;
+     padding: 10px;
+     height: 500px;
+     width: 500px;
+     grid-template-rows: repeat(11,1fr);
+     grid-template-columns: repeat(11,1fr);
+     gap: 2px;
+     background-color: rgb(0, 0, 0);
+}
+#oponent {
+    display: none;
+}
+div {
+    background-color: rgb(65, 149, 245);
+}
+
+body {
+    background-color: rgb(161, 161, 161);
+}
