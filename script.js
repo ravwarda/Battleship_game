@@ -1,26 +1,56 @@
 const literki = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
 const poleGry = document.querySelector("#player");
-let dlStatku = 5;
+let dlStatku = 5, ilStatkow = 0;
 
-function strzal(i, j) {
-    for (let d = 0; d < dlStatku; d++) {
-        if (j + d < 11) {
-            kratki[i][j+d].czyStatek = true;
-            kratki[i][j+d].pole.style.backgroundColor = "rgb(80, 80, 80)";
-            dlStatku--;
-        }
-        if (dlStatku <= 1) {
-            
+// obsługa zmiany kierunku tworzenia statków
+let pion = false;
+document.querySelector("#obrot").addEventListener("click", function() {
+    if (pion == true) {
+        pion = false;
+    } else {
+        pion = true;
+    }
+});
+
+function sprPozycjeStatku(i, j) {
+    if (pion == true) {
+        if (i + dlStatku <= 11) {
+            for (let d = 0; d < dlStatku; d++) {
+                kratki[i+d][j].ustawPoleStatek();
+            }
+            ustawStatek();
         }
     }
+    else {
+        if (j + dlStatku <= 11) {
+            for (let d = 0; d < dlStatku; d++) {
+                    kratki[i][j+d].ustawPoleStatek();
+            }
+            ustawStatek();
+        }
+    } 
 }
 
+function ustawStatek() {
+    ilStatkow++;
+            if (ilStatkow == 1 || ilStatkow == 3 || ilStatkow == 6) {
+                dlStatku--;
+            }
+            else if (ilStatkow >= 9) {
+                dlStatku--;
+                dlStatku = 0;
+            }
+}
+
+// funkcja do tworzenia kratek opisujących pole gry
 function ustawKratke(znak, i, j) {
         kratki[i][j] = document.createElement("div");
         kratki[i][j].innerText = znak;
+        kratki[i][j].classList = "poleOpisowe"
         poleGry.appendChild(kratki[i][j]);
 }
 
+// obiekt pojedynczego pola gry
 class kratka {
 
     czyTrafione = false;
@@ -30,8 +60,19 @@ class kratka {
     constructor(pole) {
         this.pole = pole;
     }
+
+    ustawPoleStatek() {
+        this.czyStatek = true;
+        this.pole.style.backgroundColor = "rgb(80, 80, 80)";
+    }
+
+    ustawionyStatekObok() {
+        this.czyStatekObok = true;
+        this.pole.style.backgroundColor = "rgb(255, 100, 100)";
+    }
 }
 
+// tworzenie pola gry dla gracza
 const kratki = [];
 for (let i = 0; i < 11; i++) {
     for (let j = 0; j < 11; j++) {
@@ -50,7 +91,7 @@ for (let i = 0; i < 11; i++) {
             kratki[i][j] = new kratka(document.createElement("div"));
             poleGry.appendChild(kratki[i][j].pole);
             kratki[i][j].pole.addEventListener("click", function() {
-                strzal(i,j);
+                sprPozycjeStatku(i,j);
             });
         }
 
