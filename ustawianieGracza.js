@@ -1,17 +1,58 @@
 let dlStatku = 5, ilStatkow = 0, ustawionoGracza = false;
 
-function sprPozycjeStatku(i, j, kratki) {
-    function ustawStatek() {
-        ilStatkow++;
-        if (ilStatkow == 1 || ilStatkow == 2 || ilStatkow == 5) {
-          dlStatku--;
-        } else if (ilStatkow >= 9) {
-          dlStatku = 0;
-          ustawionoGracza = true;
+// obsługa zmiany kierunku tworzenia statków
+let pion = false;
+document.querySelector("#obrot").addEventListener("click", function () {
+  if (pion == true) {
+    pion = false;
+  } else {
+    pion = true;
+  }
+});
+
+// obsługa resetowania pola gracza
+document.querySelector("#reset").addEventListener("click", function () {
+  console.log(ustawionoPrzeciwnika);
+  if (ustawionoPrzeciwnika == false) {
+    ustawionoGracza = false;
+    for (let i = 1; i <= 10; i++) {
+      for (let j = 1; j <= 10; j++) {
+        kratkiG[i][j].Reset();
+        ilStatkow = 0;
+        dlStatku = 5;
+      }
+    }
+  }
+});
+
+// obsługa przycisku startu gry
+document.querySelector("#start").addEventListener("click", function () {
+  console.log(ustawionoPrzeciwnika);
+  if (ustawionoGracza == true && ustawionoPrzeciwnika == false) {
+    ustawPrzeciwnika();
+    for (let i = 1; i <= 10; i++) {
+      for (let j = 1; j <= 10; j++) {
+        if (kratkiG[i][j].czyStatekObok == true) {
+          kratkiG[i][j].kolorReset();
         }
       }
+    }
+  }
+});
 
-      console.log("i: "+i+" j: "+j);
+// ustawianie statku
+function sprPozycjeStatku(i, j, kratki) {
+  function ustawStatek() {
+    ilStatkow++;
+    if (ilStatkow == 1 || ilStatkow == 2 || ilStatkow == 5) {
+      dlStatku--;
+    } else if (ilStatkow >= 9) {
+      dlStatku = 0;
+      ustawionoGracza = true;
+    }
+  }
+
+  //console.log("i: " + i + " j: " + j);
   if (pion == true) {
     const ostatni = i + dlStatku - 1;
     if (ostatni <= 10) {
@@ -102,13 +143,3 @@ function sprPozycjeStatku(i, j, kratki) {
     }
   }
 }
-
-// obsługa zmiany kierunku tworzenia statków
-let pion = false;
-document.querySelector("#obrot").addEventListener("click", function() {
-  if (pion == true) {
-    pion = false;
-  } else {
-    pion = true;
-  }
-});

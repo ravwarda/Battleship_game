@@ -51,9 +51,11 @@ function ustawPrzeciwnika() {
     }
     ilPrzed = ilStatkow;
     sprPozycjeStatku(los10(), los10(), kratkiP);
-    //if (ilPrzed != ilStatkow) {
-    //  
-    //}
+  }
+  for (let i = 1; i < 11; i++) {
+    for (let j = 1; j < 11; j++) {
+      kratkiP[i][j].kolorReset();
+    }
   }
   polePrzeciwnik.style.display = "grid";
   ustawionoPrzeciwnika == true;
@@ -82,6 +84,12 @@ class kratka {
   kolorReset() {
     this.pole.style.backgroundColor = "rgb(65, 149, 245)";
   }
+
+  Reset() {
+    this.pole.style.backgroundColor = "rgb(65, 149, 245)";
+    this.czyStatek = false;
+    this.czyStatekObok = false;
+  }
 }
 
 // tworzenie pola gry dla gracza
@@ -100,12 +108,9 @@ for (let i = 0; i < 11; i++) {
       kratkiG[i][j] = new kratka(document.createElement("div"));
       poleGracz.appendChild(kratkiG[i][j].pole);
       kratkiG[i][j].pole.addEventListener("click", function () {
-        console.log(ustawionoGracza);
+        //console.log(ustawionoGracza);
         if (ustawionoGracza == false) {
           sprPozycjeStatku(i, j, kratkiG);
-        }
-        else if (ustawionoPrzeciwnika == false) {
-          ustawPrzeciwnika();
         }
       });
     }
