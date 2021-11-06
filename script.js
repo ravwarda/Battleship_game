@@ -1,7 +1,8 @@
 const literki = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+const statkiG = [], statkiP = [];
 const poleGracz = document.querySelector("#player");
 const polePrzeciwnik = document.querySelector("#oponent");
-let ustawionoPrzeciwnika = false;
+let  ustawionoGracza = false, ustawionoPrzeciwnika = false, turaGracza = true;
 
 // funkcja do tworzenia kratek opisujących pole gry
 function ustawKratke(znak, i, j, kratki) {
@@ -24,7 +25,7 @@ function ustawPrzeciwnika() {
   let ilPrzed;
 
   dlStatku = 5;
-  ilStatkow = 0;
+  ilStatkowG = 0;
   const kratkiP = [];
   for (let i = 0; i < 11; i++) {
     for (let j = 0; j < 11; j++) {
@@ -39,6 +40,9 @@ function ustawPrzeciwnika() {
       } else {
         kratkiP[i][j] = new kratka(document.createElement("div"));
         polePrzeciwnik.appendChild(kratkiP[i][j].pole);
+        kratkiP[i][j].pole.addEventListener("click", function () {
+          kratkiP[i][j].Strzal();
+        });
       }
     }
   }
@@ -49,7 +53,7 @@ function ustawPrzeciwnika() {
     else {
       pion = false;
     }
-    ilPrzed = ilStatkow;
+    ilPrzed = ilStatkowG;
     sprPozycjeStatku(los10(), los10(), kratkiP);
   }
   for (let i = 1; i < 11; i++) {
@@ -58,38 +62,7 @@ function ustawPrzeciwnika() {
     }
   }
   polePrzeciwnik.style.display = "grid";
-  ustawionoPrzeciwnika == true;
-}
-
-// obiekt pojedynczego pola gry
-class kratka {
-  czyTrafione = false;
-  czyStatek = false;
-  czyStatekObok = false;
-
-  constructor(pole) {
-    this.pole = pole;
-  }
-
-  ustawPoleStatek() {
-    this.czyStatek = true;
-    this.pole.style.backgroundColor = "rgb(80, 80, 80)";
-  }
-
-  ustawionyStatekObok() {
-    this.czyStatekObok = true;
-    this.pole.style.backgroundColor = "rgb(255, 100, 100)";
-  }
-
-  kolorReset() {
-    this.pole.style.backgroundColor = "rgb(65, 149, 245)";
-  }
-
-  Reset() {
-    this.pole.style.backgroundColor = "rgb(65, 149, 245)";
-    this.czyStatek = false;
-    this.czyStatekObok = false;
-  }
+  ustawionoPrzeciwnika = true;
 }
 
 // tworzenie pola gry dla gracza

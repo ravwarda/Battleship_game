@@ -1,8 +1,9 @@
-let dlStatku = 5, ilStatkow = 0, ustawionoGracza = false;
+let dlStatku = 5, ilStatkowG = 0, ilStatkowP = 0;
 
 // obsługa zmiany kierunku tworzenia statków
 let pion = false;
-document.querySelector("#obrot").addEventListener("click", function () {
+pObrot = document.querySelector("#obrot");
+pObrot.addEventListener("click", function () {
   if (pion == true) {
     pion = false;
   } else {
@@ -11,14 +12,14 @@ document.querySelector("#obrot").addEventListener("click", function () {
 });
 
 // obsługa resetowania pola gracza
-document.querySelector("#reset").addEventListener("click", function () {
-  console.log(ustawionoPrzeciwnika);
+pReset = document.querySelector("#reset");
+pReset.addEventListener("click", function () {
   if (ustawionoPrzeciwnika == false) {
     ustawionoGracza = false;
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
         kratkiG[i][j].Reset();
-        ilStatkow = 0;
+        ilStatkowG = 0;
         dlStatku = 5;
       }
     }
@@ -26,10 +27,13 @@ document.querySelector("#reset").addEventListener("click", function () {
 });
 
 // obsługa przycisku startu gry
-document.querySelector("#start").addEventListener("click", function () {
-  console.log(ustawionoPrzeciwnika);
+pStart = document.querySelector("#start")
+pStart.addEventListener("click", function () {
   if (ustawionoGracza == true && ustawionoPrzeciwnika == false) {
     ustawPrzeciwnika();
+    pStart.style.display = "none";
+    pObrot.style.display = "none";
+    pReset.style.opacity = "50%";
     for (let i = 1; i <= 10; i++) {
       for (let j = 1; j <= 10; j++) {
         if (kratkiG[i][j].czyStatekObok == true) {
@@ -41,14 +45,53 @@ document.querySelector("#start").addEventListener("click", function () {
 });
 
 // ustawianie statku
-function sprPozycjeStatku(i, j, kratki) {
+function sprPozycjeStatku(i, j, kratki, cel) {
   function ustawStatek() {
-    ilStatkow++;
-    if (ilStatkow == 1 || ilStatkow == 2 || ilStatkow == 5) {
+    let ilStatkow;
+    if (kratki == kratkiG) {
+      ilStatkowG++;
+      ilStatkow = ilStatkowG;
+    }
+    else {
+      ilStatkowP++;
+      ilStatkow = ilStatkowP;
+    }
+    if (ilStatkow == 1 || ilStatkow == 2 || ilStatkow == 4) {
       dlStatku--;
-    } else if (ilStatkow >= 9) {
+    } else if (ilStatkow >= 8) {
       dlStatku = 0;
       ustawionoGracza = true;
+      pStart.style.opacity = "100%";
+    }
+  }
+
+  function pionowy() {
+    if (kratki == kratkiG) {
+      statkiG[ilStatkowG] = new statek(dlStatku);
+      for (let d = 0; d < dlStatku; d++) {
+        kratki[i + d][j].ustawPoleStatek(statkiG[ilStatkowG]);
+      }
+    }
+    else {
+      statkiP[ilStatkowP] = new statek(dlStatku);
+      for (let d = 0; d < dlStatku; d++) {
+        kratki[i + d][j].ustawPoleStatek(statkiP[ilStatkowP]);
+      }
+    }
+  }
+
+  function poziomy() {
+    if (kratki == kratkiG) {
+      statkiG[ilStatkowG] = new statek(dlStatku);
+      for (let d = 0; d < dlStatku; d++) {
+        kratki[i][j + d].ustawPoleStatek(statkiG[ilStatkowG]);
+      }
+    }
+    else {
+      statkiP[ilStatkowP] = new statek(dlStatku);
+      for (let d = 0; d < dlStatku; d++) {
+        kratki[i][j + d].ustawPoleStatek(statkiP[ilStatkowP]);
+      }
     }
   }
 
@@ -92,9 +135,7 @@ function sprPozycjeStatku(i, j, kratki) {
           kratki[i + d][j + 1].ustawionyStatekObok();
         }
       }
-      for (let d = 0; d < dlStatku; d++) {
-        kratki[i + d][j].ustawPoleStatek();
-      }
+      pionowy();
       ustawStatek();
     }
   } else {
@@ -136,9 +177,7 @@ function sprPozycjeStatku(i, j, kratki) {
           kratki[i + 1][j + d].ustawionyStatekObok();
         }
       }
-      for (let d = 0; d < dlStatku; d++) {
-        kratki[i][j + d].ustawPoleStatek();
-      }
+      poziomy();
       ustawStatek();
     }
   }

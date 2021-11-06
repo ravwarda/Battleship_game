@@ -26,3 +26,6 @@ div {
 body {
     background-color: rgb(161, 161, 161);
 }
+#start {
+    opacity: 50%;
+}
