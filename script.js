@@ -26,7 +26,6 @@ function ustawPrzeciwnika() {
 
   dlStatku = 5;
   ilStatkowG = 0;
-  const kratkiP = [];
   for (let i = 0; i < 11; i++) {
     for (let j = 0; j < 11; j++) {
       if (i == 0 && j == 0) {
@@ -41,7 +40,13 @@ function ustawPrzeciwnika() {
         kratkiP[i][j] = new kratka(document.createElement("div"));
         polePrzeciwnik.appendChild(kratkiP[i][j].pole);
         kratkiP[i][j].pole.addEventListener("click", function () {
-          kratkiP[i][j].Strzal();
+          kratkiP[i][j].strzal();
+          if (kratkiP[i][j].obStatek != undefined) {
+            let akStatek = kratkiP[i][j].obStatek;
+            if (akStatek.czyZatopiony == true) {
+              sprPozycjeStatku(akStatek.poczatek[0], akStatek.poczatek[1], kratkiP, 'z');
+            }
+          }
         });
       }
     }
@@ -54,7 +59,7 @@ function ustawPrzeciwnika() {
       pion = false;
     }
     ilPrzed = ilStatkowG;
-    sprPozycjeStatku(los10(), los10(), kratkiP);
+    sprPozycjeStatku(los10(), los10(), kratkiP, 's');
   }
   for (let i = 1; i < 11; i++) {
     for (let j = 1; j < 11; j++) {
@@ -67,6 +72,7 @@ function ustawPrzeciwnika() {
 
 // tworzenie pola gry dla gracza
 const kratkiG = [];
+const kratkiP = [];
 for (let i = 0; i < 11; i++) {
   for (let j = 0; j < 11; j++) {
     if (i == 0 && j == 0) {
@@ -83,7 +89,7 @@ for (let i = 0; i < 11; i++) {
       kratkiG[i][j].pole.addEventListener("click", function () {
         //console.log(ustawionoGracza);
         if (ustawionoGracza == false) {
-          sprPozycjeStatku(i, j, kratkiG);
+          sprPozycjeStatku(i, j, kratkiG, 's');
         }
       });
     }

@@ -44,7 +44,7 @@ pStart.addEventListener("click", function () {
   }
 });
 
-// ustawianie statku
+// ustawianie lub niszczenie statku
 function sprPozycjeStatku(i, j, kratki, cel) {
   function ustawStatek() {
     let ilStatkow;
@@ -65,15 +65,24 @@ function sprPozycjeStatku(i, j, kratki, cel) {
     }
   }
 
+  function zniszczStatek() {
+    if (kratki == kratkiG) {
+      ilStatkowG--;
+    }
+    else {
+      ilStatkowP--;
+    }
+  }
+
   function pionowy() {
     if (kratki == kratkiG) {
-      statkiG[ilStatkowG] = new statek(dlStatku);
+      statkiG[ilStatkowG] = new statek(dlStatku, true, i, j);
       for (let d = 0; d < dlStatku; d++) {
         kratki[i + d][j].ustawPoleStatek(statkiG[ilStatkowG]);
       }
     }
     else {
-      statkiP[ilStatkowP] = new statek(dlStatku);
+      statkiP[ilStatkowP] = new statek(dlStatku, true, i, j);
       for (let d = 0; d < dlStatku; d++) {
         kratki[i + d][j].ustawPoleStatek(statkiP[ilStatkowP]);
       }
@@ -82,28 +91,24 @@ function sprPozycjeStatku(i, j, kratki, cel) {
 
   function poziomy() {
     if (kratki == kratkiG) {
-      statkiG[ilStatkowG] = new statek(dlStatku);
+      statkiG[ilStatkowG] = new statek(dlStatku, false, i, j);
       for (let d = 0; d < dlStatku; d++) {
         kratki[i][j + d].ustawPoleStatek(statkiG[ilStatkowG]);
       }
     }
     else {
-      statkiP[ilStatkowP] = new statek(dlStatku);
+      statkiP[ilStatkowP] = new statek(dlStatku, false, i, j);
       for (let d = 0; d < dlStatku; d++) {
         kratki[i][j + d].ustawPoleStatek(statkiP[ilStatkowP]);
       }
     }
   }
 
-  //console.log("i: " + i + " j: " + j);
   if (pion == true) {
     const ostatni = i + dlStatku - 1;
     if (ostatni <= 10) {
       for (let d = 0; d < dlStatku; d++) {
-        if (
-          kratki[i + d][j].czyStatekObok == true ||
-          kratki[i + d][j].czyStatek == true
-        ) {
+        if ((kratki[i + d][j].czyStatekObok == true || kratki[i + d][j].czyStatek == true) && cel != 'z') {
           return 0;
         }
       }
@@ -135,17 +140,16 @@ function sprPozycjeStatku(i, j, kratki, cel) {
           kratki[i + d][j + 1].ustawionyStatekObok();
         }
       }
-      pionowy();
-      ustawStatek();
+      if (cel == 's') {
+        pionowy();
+        ustawStatek();
+      }
     }
   } else {
     const ostatni = j + dlStatku - 1;
     if (ostatni <= 10) {
       for (let d = 0; d < dlStatku; d++) {
-        if (
-          kratki[i][j + d].czyStatekObok == true ||
-          kratki[i][j + d].czyStatek == true
-        ) {
+        if ((kratki[i][j + d].czyStatekObok == true || kratki[i][j + d].czyStatek == true) && cel != 'z') {
           return 0;
         }
       }
@@ -177,8 +181,10 @@ function sprPozycjeStatku(i, j, kratki, cel) {
           kratki[i + 1][j + d].ustawionyStatekObok();
         }
       }
-      poziomy();
-      ustawStatek();
+      if (cel == 's') {
+        poziomy();
+        ustawStatek();
+      }
     }
   }
 }
