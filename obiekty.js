@@ -38,6 +38,7 @@ class kratka {
 
   ustawionyStatekObok() {
     if (ustawionoGracza == true && ustawionoPrzeciwnika == true) {
+        this.czyTrafione = true;
         this.pole.style.backgroundColor = "rgb(25, 109, 205)";
     }
     else {

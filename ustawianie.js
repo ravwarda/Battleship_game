@@ -68,9 +68,11 @@ function sprPozycjeStatku(i, j, kratki, cel) {
   function zniszczStatek() {
     if (kratki == kratkiG) {
       ilStatkowG--;
+      console.log(ilStatkowG);
     }
     else {
       ilStatkowP--;
+      console.log(ilStatkowP);
     }
   }
 
@@ -144,6 +146,9 @@ function sprPozycjeStatku(i, j, kratki, cel) {
         pionowy();
         ustawStatek();
       }
+      else if (cel == 'z') {
+        zniszczStatek();
+      }
     }
   } else {
     const ostatni = j + dlStatku - 1;
@@ -184,6 +189,9 @@ function sprPozycjeStatku(i, j, kratki, cel) {
       if (cel == 's') {
         poziomy();
         ustawStatek();
+      }
+      else if (cel == 'z') {
+        zniszczStatek();
       }
     }
   }
