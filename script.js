@@ -48,7 +48,13 @@ function ustawPrzeciwnika() {
         this.wczCel[2] = this.wczCel[0];
         this.wczCel[3] = this.wczCel[1];
       }
-      else if (this.ilTrafien > 1 && this.poprzedniTrafiony == true) {
+      else if ((this.ilTrafien > 1 && this.poprzedniTrafiony != true) || this.akCel[0] == 0 || this.akCel[0] == 11 || this.akCel[1] == 0 || this.akCel[1] == 11) {
+        this.akCel[0] = this.wczCel[2] + (this.wczCel[0] - this.akCel[0]);
+        this.akCel[1] = this.wczCel[3] + (this.wczCel[1] - this.akCel[1]);
+        this.wczCel[2] = this.wczCel[0];
+        this.wczCel[3] = this.wczCel[1];
+      }
+      else if (this.ilTrafien > 1) {
         this.akCel[2] = this.akCel[0];
         this.akCel[3] = this.akCel[1];
         this.akCel[0] += this.akCel[0]-this.wczCel[2];
@@ -56,21 +62,12 @@ function ustawPrzeciwnika() {
         this.wczCel[2] = this.akCel[2];
         this.wczCel[3] = this.akCel[3];
       }
-      else if (this.ilTrafien > 1) {
-        this.akCel[0] = this.wczCel[2] + (this.wczCel[0] - this.akCel[0]);
-        this.akCel[1] = this.wczCel[3] + (this.wczCel[1] - this.akCel[1]);
-        this.wczCel[2] = this.wczCel[0];
-        this.wczCel[3] = this.wczCel[1];
-      }
       else {
         this.akCel[0] = los10();
         this.akCel[1] = los10();
         this.wczCel[0] = this.akCel[0];
         this.wczCel[1] = this.akCel[1];
       }
-      console.log(this.akCel);
-      console.log(this.wczCel);
-      console.log(this.ilTrafien);
     },
 
     trafienie() {

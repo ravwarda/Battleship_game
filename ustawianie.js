@@ -72,7 +72,6 @@ function sprPozycjeStatku(i, j, kratki, cel) {
     }
     else {
       ilStatkowP--;
-      console.log(ilStatkowP);
     }
   }
 
