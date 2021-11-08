@@ -68,7 +68,6 @@ function sprPozycjeStatku(i, j, kratki, cel) {
   function zniszczStatek() {
     if (kratki == kratkiG) {
       ilStatkowG--;
-      console.log(ilStatkowG);
     }
     else {
       ilStatkowP--;

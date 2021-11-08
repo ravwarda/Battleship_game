@@ -1,7 +1,15 @@
+header {
+    text-align: center;
+}
 main {
     display: flex;
+    justify-content: center;
 }
-section {
+#buttons {
+    display: flex;
+    justify-content: center;
+}
+.field {
      display: grid;
      padding: 10px;
      height: 500px;

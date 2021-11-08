@@ -159,6 +159,20 @@ function ustawPrzeciwnika() {
             turaGracza = true;
           }
         });
+        kratkiP[i][j].pole.addEventListener("mouseover", function () {
+          if (ustawionoPrzeciwnika == true && turaGracza == true) {
+            if (!(kratkiP[i][j].czyTrafione == true)) {
+              kratkiP[i][j].pole.style.backgroundColor = "rgb(45, 129, 225)";
+            }
+          }
+        });
+        kratkiP[i][j].pole.addEventListener("mouseout", function () {
+          if (ustawionoPrzeciwnika == true && turaGracza == true) {
+            if (!(kratkiP[i][j].czyTrafione == true)) {
+              kratkiP[i][j].pole.style.backgroundColor = "rgb(65, 149, 245)";
+            }
+          }
+        });
       }
     }
   }
@@ -197,9 +211,74 @@ for (let i = 0; i < 11; i++) {
       kratkiG[i][j] = new kratka(document.createElement("div"));
       poleGracz.appendChild(kratkiG[i][j].pole);
       kratkiG[i][j].pole.addEventListener("click", function () {
-        //console.log(ustawionoGracza);
         if (ustawionoGracza == false) {
           sprPozycjeStatku(i, j, kratkiG, 's');
+        }
+      });
+      kratkiG[i][j].pole.addEventListener("mouseover", function () {
+        if (ustawionoGracza == false && dlStatku != 0) {
+          let czyRysowac = true;
+          if (pion == true) {
+            if (i + dlStatku <= 11) {
+              for (let d = 0; d < dlStatku; d++) {
+                if (kratkiG[i + d][j].czyStatek == true || kratkiG[i + d][j].czyStatekObok == true) {
+                  czyRysowac = false;
+                }
+              }
+              if (czyRysowac == true) {
+                for (let d = 0; d < dlStatku; d++) {
+                  kratkiG[i + d][j].pole.style.backgroundColor = "rgb(120, 120, 120)";
+                }
+              }
+            }
+          }
+          else {
+            if (j + dlStatku <= 11) {
+              for (let d = 0; d < dlStatku; d++) {
+                if (kratkiG[i][j + d].czyStatek == true || kratkiG[i][j + d].czyStatekObok == true) {
+                  czyRysowac = false;
+                }
+              }
+              if (czyRysowac == true) {
+                for (let d = 0; d < dlStatku; d++) {
+                  kratkiG[i][j + d].pole.style.backgroundColor = "rgb(120, 120, 120)";
+                }
+              }
+            }
+          }
+        }
+      });
+      kratkiG[i][j].pole.addEventListener("mouseout", function () {
+        if (ustawionoGracza == false && dlStatku != 0) {
+          let czyRysowac = true;
+          if (pion == true) {
+            if (i + dlStatku <= 11) {
+              for (let d = 0; d < dlStatku; d++) {
+                if (kratkiG[i + d][j].czyStatek == true || kratkiG[i + d][j].czyStatekObok == true) {
+                  czyRysowac = false;
+                }
+              }
+              if (czyRysowac == true) {
+                for (let d = 0; d < dlStatku; d++) {
+                  kratkiG[i + d][j].pole.style.backgroundColor = "rgb(65, 149, 245)";
+                }
+              }
+            }
+          }
+          else {
+            if (j + dlStatku <= 11) {
+              for (let d = 0; d < dlStatku; d++) {
+                if (kratkiG[i][j + d].czyStatek == true || kratkiG[i][j + d].czyStatekObok == true) {
+                  czyRysowac = false;
+                }
+              }
+              if (czyRysowac == true) {
+                for (let d = 0; d < dlStatku; d++) {
+                  kratkiG[i][j + d].pole.style.backgroundColor = "rgb(65, 149, 245)";
+                }
+              }
+            }
+          }
         }
       });
     }
