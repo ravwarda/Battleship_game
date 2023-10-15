@@ -1,3 +1,6 @@
+* {
+    font-family: 'Segoe UI';
+}
 header {
     text-align: center;
 }
@@ -10,6 +13,7 @@ main {
     justify-content: center;
 }
 .field {
+    color: rgb(200, 200, 200);
      display: grid;
      padding: 10px;
      height: 500px;
@@ -25,6 +29,7 @@ main {
 div {
     background-color: rgb(65, 149, 245);
     text-align: center;
+    padding-top: 10px;
 }
 
 .poleOpisowe {
@@ -36,4 +41,17 @@ body {
 }
 #start {
     opacity: 50%;
+}
+
+@media only screen and (max-width: 540px) {
+    .field {
+        height: 90vw;
+        width: 90vw;
+    }
+    div {
+        padding-top: 1vw;
+    }
+    main {
+        flex-direction: column;
+    }
 }

@@ -1,4 +1,4 @@
-const literki = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j"];
+const literki = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J"];
 const statkiG = [], statkiP = [];
 const poleGracz = document.querySelector("#player");
 const polePrzeciwnik = document.querySelector("#oponent");
